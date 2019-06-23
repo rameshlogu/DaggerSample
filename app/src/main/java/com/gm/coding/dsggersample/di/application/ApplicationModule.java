@@ -22,4 +22,9 @@ public class ApplicationModule {
     MainApplication provideApplication(){
         return mApplication;
     }
+
+    @Provides
+    Context provideApplicationContext(){
+        return mApplication.getApplicationContext();
+    }
 }

@@ -1,5 +1,6 @@
 package com.gm.coding.dsggersample;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -7,6 +8,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +25,8 @@ public class MainActivity extends FragmentActivity {
     public FragmentManager fragmentManager;
     @Inject
     public FirstFragment firstFragment;
+    @Inject
+    public Context applicationContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +46,11 @@ public class MainActivity extends FragmentActivity {
         });
 
         DaggerActivityComponent.builder()
+                .applicationComponent(((MainApplication)getApplication()).getApplicationComponent())
                 .activityModule(new ActivityModule(this)).build()
                 .inject(this);
+
+        Log.d("Test", "======> "+applicationContext.getPackageName());
     }
 
     @Override
